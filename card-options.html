@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ISU — варианты карточек товара</title>
+<meta name="description" content="4 варианта оформления карточек товара и каталога для ISU — для сравнения и выбора." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0908; --bg-soft:#141210; --bg-card:#17140f;
+    --fg:#f3ede2; --fg-dim:#a79c8c;
+    --line:rgba(243,237,226,.14); --line-strong:rgba(243,237,226,.22);
+    --accent:#cfc6b4; --ease:cubic-bezier(.16,.8,.24,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);font-family:'Manrope',system-ui,sans-serif;line-height:1.4;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  @media(max-width:640px){.wrap{padding:0 18px}}
+
+  .intro{padding:56px 0 40px;border-bottom:1px solid var(--line)}
+  .intro p.kicker{font-size:12.5px;letter-spacing:.12em;font-weight:700;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+  .intro h1{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.01em;margin-bottom:14px}
+  .intro p{color:var(--fg-dim);font-size:15px;max-width:60ch;line-height:1.6}
+
+  .option{padding:52px 0;border-bottom:1px solid var(--line)}
+  .option:last-child{border-bottom:0}
+  .option-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+  .option-num{font-size:13px;font-weight:800;color:var(--accent);letter-spacing:.04em}
+  .option-head h2{font-size:22px;font-weight:800}
+  .option-desc{color:var(--fg-dim);font-size:14px;max-width:62ch;margin-bottom:30px}
+
+  .flavour-swatch{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+  /* ============ 1. Compact (current) ============ */
+  .grid-1{display:grid;grid-template-columns:repeat(2,minmax(0,280px));gap:20px;justify-content:start}
+  @media(max-width:560px){.grid-1{grid-template-columns:minmax(0,280px)}}
+  .card-1{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg-soft)}
+  .card-1-media{width:52%;margin:16px auto 0;aspect-ratio:3/4;overflow:hidden;position:relative}
+  .card-1-media img{position:absolute;left:0;bottom:0;width:100%;max-width:none;height:auto}
+  .card-1-body{padding:12px 16px 16px}
+  .card-1-body .eyebrow{font-size:10px;letter-spacing:.08em;color:var(--fg-dim);text-transform:uppercase}
+  .card-1-body h3{font-size:16px;font-weight:800;margin-top:4px}
+  .card-1-body .flavours{display:flex;gap:5px;margin-top:8px}
+  .card-1-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;margin-top:12px;border-top:1px solid var(--line)}
+  .card-1-foot b{font-size:14px;font-weight:800}
+  .mini-btn{background:var(--accent);color:#141005;font-weight:700;font-size:12px;padding:8px 12px;border:0;border-radius:99px}
+
+  /* ============ 2. Full-bleed photo ============ */
+  .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,300px));gap:20px;justify-content:start}
+  @media(max-width:640px){.grid-2{grid-template-columns:minmax(0,300px)}}
+  .card-2{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;background:linear-gradient(160deg,#221912,#0d0a07)}
+  .card-2 img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center 60%;transform:scale(1.35)}
+  .card-2::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,7,0) 45%,rgba(8,6,4,.92) 100%)}
+  .card-2-info{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:18px}
+  .card-2-info .eyebrow{font-size:10px;letter-spacing:.08em;color:#e8c9ad;text-transform:uppercase;opacity:.85}
+  .card-2-info h3{font-size:19px;font-weight:800;margin:4px 0 8px}
+  .card-2-row{display:flex;align-items:center;justify-content:space-between}
+  .card-2-row b{font-size:15px;font-weight:800}
+  .icon-btn{width:38px;height:38px;border-radius:50%;background:var(--accent);color:#141005;display:flex;align-items:center;justify-content:center;border:0;font-size:18px;font-weight:800}
+
+  /* ============ 3. Horizontal row ============ */
+  .rows-3{display:flex;flex-direction:column;gap:14px;max-width:640px}
+  .card-3{display:grid;grid-template-columns:92px 1fr auto;gap:16px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--bg-soft)}
+  .card-3-media{width:92px;height:92px;border-radius:10px;overflow:hidden;position:relative;background:#1c150f}
+  .card-3-media img{position:absolute;left:0;bottom:0;width:100%;max-width:none;height:auto}
+  .card-3-info h3{font-size:15.5px;font-weight:800}
+  .card-3-info p{font-size:12.5px;color:var(--fg-dim);margin-top:3px}
+  .card-3-end{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+  .card-3-end b{font-size:14.5px;font-weight:800}
+
+  /* ============ 4. Badge / accent panel ============ */
+  .grid-4{display:grid;grid-template-columns:repeat(2,minmax(0,300px));gap:20px;justify-content:start}
+  @media(max-width:640px){.grid-4{grid-template-columns:minmax(0,300px)}}
+  .card-4{border-radius:18px;overflow:hidden;background:var(--bg-soft);border:1px solid var(--line)}
+  .card-4-media{position:relative;background:#221a14;padding:22px 22px 0}
+  .card-4-badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--accent);color:#141005;font-size:11px;font-weight:800;letter-spacing:.02em;padding:5px 10px;border-radius:99px}
+  .card-4-media-inner{aspect-ratio:3/4;position:relative;overflow:hidden}
+  .card-4-media-inner img{position:absolute;left:0;bottom:0;width:100%;max-width:none;height:auto}
+  .card-4-body{padding:18px}
+  .card-4-body .eyebrow{font-size:10px;letter-spacing:.08em;color:var(--fg-dim);text-transform:uppercase}
+  .card-4-body h3{font-size:18px;font-weight:800;margin:4px 0 10px}
+  .card-4-price{font-size:26px;font-weight:800;margin-bottom:12px}
+  .card-4-price span{font-size:13px;color:var(--fg-dim);font-weight:600}
+  .full-btn{display:block;width:100%;text-align:center;background:var(--accent);color:#141005;font-weight:700;font-size:14px;padding:12px;border:0;border-radius:99px}
+</style>
+</head>
+<body>
+
+  <div class="intro wrap">
+    <p class="kicker">ISU / Варианты карточек</p>
+    <h1>4 варианта карточки товара и каталога</h1>
+    <p>Один и тот же протеин и креатин, оформленные по-разному. Ниже — 4 стиля: от текущего компактного до крупного фото, строки-списка и акцентной карточки с бейджем. Пролистай и скажи номер, который нравится — можно и смешать детали из разных.</p>
+  </div>
+
+  <section class="option">
+    <div class="wrap">
+      <div class="option-head"><span class="option-num">01</span><h2>Компакт (как сейчас)</h2></div>
+      <p class="option-desc">Маленькая нейтральная карточка: фото сверху по центру, название и вкусы снизу. Спокойно, ничего не отвлекает — акцент на сетке из многих товаров.</p>
+      <div class="grid-1">
+        <div class="card-1">
+          <div class="card-1-media"><img src="assets/protein-cutout.png" alt="Протеин ISU" style="width:300%;transform:translateX(0)"/></div>
+          <div class="card-1-body">
+            <p class="eyebrow">Whey Protein · 900 г</p>
+            <h3>Протеин ISU</h3>
+            <div class="flavours"><span class="flavour-swatch" style="background:#452d23"></span><span class="flavour-swatch" style="background:#796044"></span><span class="flavour-swatch" style="background:#71273e"></span></div>
+            <div class="card-1-foot"><b>3 900 ₽</b><button class="mini-btn">В корзину</button></div>
+          </div>
+        </div>
+        <div class="card-1">
+          <div class="card-1-media"><img src="assets/creatine-cutout.png" alt="Креатин ISU" style="width:74%;left:13%"/></div>
+          <div class="card-1-body">
+            <p class="eyebrow">Creatine · 20 стиков</p>
+            <h3>Креатин ISU</h3>
+            <div class="flavours"><span class="flavour-swatch" style="background:#a3312f"></span><span class="flavour-swatch" style="background:#8f3f22"></span><span class="flavour-swatch" style="background:#7a4fae"></span><span class="flavour-swatch" style="background:#c94f5f"></span></div>
+            <div class="card-1-foot"><b>2 400 ₽</b><button class="mini-btn">В корзину</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="option">
+    <div class="wrap">
+      <div class="option-head"><span class="option-num">02</span><h2>Фото на весь блок</h2></div>
+      <p class="option-desc">Товар — главный герой: фото занимает всю карточку, название и цена лежат поверх затемнения снизу. Смотрится дороже и заметнее в сетке, но требует хороших фото на однотонном фоне.</p>
+      <div class="grid-2">
+        <div class="card-2">
+          <img src="assets/protein-cutout.png" alt="Протеин ISU" style="width:300%;object-fit:cover;object-position:0% 60%;transform:none"/>
+          <div class="card-2-info">
+            <p class="eyebrow">WHEY PROTEIN · 900 Г</p>
+            <h3>Протеин ISU</h3>
+            <div class="card-2-row"><b>3 900 ₽</b><button class="icon-btn">+</button></div>
+          </div>
+        </div>
+        <div class="card-2">
+          <img src="assets/creatine-cutout.png" alt="Креатин ISU"/>
+          <div class="card-2-info">
+            <p class="eyebrow">CREATINE · 20 СТИКОВ</p>
+            <h3>Креатин ISU</h3>
+            <div class="card-2-row"><b>2 400 ₽</b><button class="icon-btn">+</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="option">
+    <div class="wrap">
+      <div class="option-head"><span class="option-num">03</span><h2>Строка-список</h2></div>
+      <p class="option-desc">Товары идут строками, а не плиткой: маленькое фото слева, инфо и цена справа. Хорошо, когда товаров становится много и нужно быстро всё пролистать и сравнить цены.</p>
+      <div class="rows-3">
+        <div class="card-3">
+          <div class="card-3-media"><img src="assets/protein-cutout.png" alt="Протеин ISU" style="width:300%"/></div>
+          <div class="card-3-info"><h3>Протеин ISU</h3><p>3 вкуса · 900 г</p></div>
+          <div class="card-3-end"><b>3 900 ₽</b><button class="mini-btn">В корзину</button></div>
+        </div>
+        <div class="card-3">
+          <div class="card-3-media"><img src="assets/creatine-cutout.png" alt="Креатин ISU" style="width:100%;object-fit:contain"/></div>
+          <div class="card-3-info"><h3>Креатин ISU</h3><p>Ассорти · 20 стиков</p></div>
+          <div class="card-3-end"><b>2 400 ₽</b><button class="mini-btn">В корзину</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="option">
+    <div class="wrap">
+      <div class="option-head"><span class="option-num">04</span><h2>Акцент с бейджем</h2></div>
+      <p class="option-desc">Фото на своей тёплой подложке (не в общий тёмный фон), сверху — бейдж вроде «Хит» или «Новинка», цена крупная. Больше похоже на витрину магазина, чем на нейтральный каталог.</p>
+      <div class="grid-4">
+        <div class="card-4">
+          <div class="card-4-media">
+            <span class="card-4-badge">Хит продаж</span>
+            <div class="card-4-media-inner"><img src="assets/protein-cutout.png" alt="Протеин ISU" style="width:300%"/></div>
+          </div>
+          <div class="card-4-body">
+            <p class="eyebrow">Whey Protein · 900 г</p>
+            <h3>Протеин ISU</h3>
+            <p class="card-4-price">3 900 ₽ <span>/ банка</span></p>
+            <button class="full-btn">В корзину</button>
+          </div>
+        </div>
+        <div class="card-4">
+          <div class="card-4-media">
+            <span class="card-4-badge">Новинка</span>
+            <div class="card-4-media-inner"><img src="assets/creatine-cutout.png" alt="Креатин ISU" style="width:74%;left:13%"/></div>
+          </div>
+          <div class="card-4-body">
+            <p class="eyebrow">Creatine · 20 стиков</p>
+            <h3>Креатин ISU</h3>
+            <p class="card-4-price">2 400 ₽ <span>/ тубус</span></p>
+            <button class="full-btn">В корзину</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ISU — варианты цвета кнопок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0908;color:#f3ede2;font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1200px;margin:0 auto;padding:56px 24px}
+  .page-head{margin-bottom:48px}
+  .page-head h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;margin-bottom:10px}
+  .page-head p{color:#a79c8c;font-size:15px;max-width:560px}
+
+  .option{margin-bottom:64px;padding-bottom:56px;border-bottom:1px solid rgba(243,237,226,.12)}
+  .option:last-child{border-bottom:0}
+  .option-label{display:flex;align-items:baseline;gap:14px;margin-bottom:22px}
+  .option-num{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.08em}
+  .option-name{font-size:19px;font-weight:800}
+  .option-hex{font-size:13px;color:#a79c8c;font-family:ui-monospace,monospace}
+
+  .demo-row{display:flex;gap:22px;align-items:stretch;flex-wrap:wrap}
+
+  .demo-hero{
+    flex:1 1 340px;background:#141210;border-radius:16px;padding:28px;
+    display:flex;flex-direction:column;justify-content:flex-end;gap:16px;min-height:180px;
+  }
+  .demo-hero p{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .demo-hero h2{font-size:24px;font-weight:800}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#141005;
+    font-weight:700;font-size:15px;padding:14px 22px;border:0;border-radius:99px;width:fit-content;
+  }
+
+  .demo-card{
+    flex:0 0 260px;border:1px solid transparent;border-radius:18px;overflow:hidden;background:#141210;
+    display:flex;flex-direction:column;padding-bottom:18px;
+  }
+  .demo-card:hover{border-color:var(--accent-soft, var(--accent))}
+  .demo-media{width:53%;margin:18px auto 0;aspect-ratio:1768/2667;overflow:hidden;position:relative;border-radius:12px}
+  .demo-media img{position:absolute;left:0;bottom:0;width:300%;height:auto;max-width:none}
+  .demo-body{padding:14px 18px 0}
+  .demo-eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#a79c8c;margin-bottom:6px}
+  .demo-title{font-size:16px;font-weight:700;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(243,237,226,.14)}
+  .demo-controls{display:flex;align-items:center;justify-content:space-between}
+  .demo-price{font-size:16px;font-weight:800}
+  .add-btn{
+    display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#141005;font-weight:700;font-size:12.5px;
+    padding:9px 14px;border:0;border-radius:99px;white-space:nowrap;
+  }
+  .bag{width:14px;height:14px}
+
+  @media(max-width:640px){.demo-row{flex-direction:column}.demo-card{flex:1 1 auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="page-head">
+    <h1>Варианты цвета вместо оранжевого</h1>
+    <p>4 сочетания на настоящих карточках сайта. Тёмный фон и белый текст — как на сайте — не меняются, меняется только акцентный цвет кнопок.</p>
+  </div>
+
+  <div class="option" style="--accent:#7a2b33">
+    <div class="option-label"><span class="option-num">01</span><span class="option-name">Бордовый</span><span class="option-hex">#7a2b33</span></div>
+    <div class="demo-row">
+      <div class="demo-hero"><p>ISU · спортивное питание</p><h2>Свой путь. Свой характер.</h2><a class="btn">Выбрать продукт →</a></div>
+      <div class="demo-card">
+        <div class="demo-media"><img src="assets/protein-cutout.png" alt="" /></div>
+        <div class="demo-body">
+          <p class="demo-eyebrow">Whey protein · 900 г</p>
+          <p class="demo-title">Протеин · Шоколад</p>
+          <div class="demo-controls"><span class="demo-price">3 900 ₽</span><button class="add-btn"><svg class="bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>В корзину</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" style="--accent:#a8823c">
+    <div class="option-label"><span class="option-num">02</span><span class="option-name">Тёмное золото</span><span class="option-hex">#a8823c</span></div>
+    <div class="demo-row">
+      <div class="demo-hero"><p>ISU · спортивное питание</p><h2>Свой путь. Свой характер.</h2><a class="btn">Выбрать продукт →</a></div>
+      <div class="demo-card">
+        <div class="demo-media"><img src="assets/protein-cutout.png" alt="" /></div>
+        <div class="demo-body">
+          <p class="demo-eyebrow">Whey protein · 900 г</p>
+          <p class="demo-title">Протеин · Шоколад</p>
+          <div class="demo-controls"><span class="demo-price">3 900 ₽</span><button class="add-btn"><svg class="bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>В корзину</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" style="--accent:#4a6b78">
+    <div class="option-label"><span class="option-num">03</span><span class="option-name">Стальной синий</span><span class="option-hex">#4a6b78</span></div>
+    <div class="demo-row">
+      <div class="demo-hero"><p>ISU · спортивное питание</p><h2>Свой путь. Свой характер.</h2><a class="btn">Выбрать продукт →</a></div>
+      <div class="demo-card">
+        <div class="demo-media"><img src="assets/protein-cutout.png" alt="" /></div>
+        <div class="demo-body">
+          <p class="demo-eyebrow">Whey protein · 900 г</p>
+          <p class="demo-title">Протеин · Шоколад</p>
+          <div class="demo-controls"><span class="demo-price">3 900 ₽</span><button class="add-btn"><svg class="bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>В корзину</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" style="--accent:#cfc6b4">
+    <div class="option-label"><span class="option-num">04</span><span class="option-name">Кремово-белый (без цвета)</span><span class="option-hex">#cfc6b4</span></div>
+    <div class="demo-row">
+      <div class="demo-hero"><p style="color:#a79c8c">ISU · спортивное питание</p><h2>Свой путь. Свой характер.</h2><a class="btn">Выбрать продукт →</a></div>
+      <div class="demo-card">
+        <div class="demo-media"><img src="assets/protein-cutout.png" alt="" /></div>
+        <div class="demo-body">
+          <p class="demo-eyebrow">Whey protein · 900 г</p>
+          <p class="demo-title">Протеин · Шоколад</p>
+          <div class="demo-controls"><span class="demo-price">3 900 ₽</span><button class="add-btn"><svg class="bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>В корзину</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
