@@ -38,7 +38,7 @@ button,.btn,.add-btn{-webkit-user-select:none;user-select:none;-webkit-touch-cal
   .cart-line-qty button{width:34px;height:34px}
   .cart-line-end button{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;margin:-8px -8px 0 0}
   .flavour-pill{padding-top:10px;padding-bottom:10px}
-  .cart-promo input{font-size:16px}
+  .cart-promo input{font-size:var(--fs-body)}
 }
 
 /* ---------- FAQ: раскрывающиеся вопросы-ответы ---------- */
@@ -49,7 +49,7 @@ button,.btn,.add-btn{-webkit-user-select:none;user-select:none;-webkit-touch-cal
 .faq-list{border-top:1px solid var(--line)}
 .faq-item{border-bottom:1px solid var(--line);scroll-margin-top:24px}
 .faq-item h3{font-size:inherit;font-weight:inherit;line-height:inherit}
-.faq-q{display:flex;width:100%;min-height:60px;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;background:none;border:0;color:var(--fg);font-family:inherit;font-size:clamp(16.5px,2vw,19px);font-weight:700;line-height:1.3;text-align:left;cursor:pointer;transition:color .25s var(--ease),opacity .12s var(--ease)}
+.faq-q{display:flex;width:100%;min-height:60px;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;background:none;border:0;color:var(--fg);font-family:inherit;font-size:var(--fs-lead);font-weight:700;line-height:1.3;text-align:left;cursor:pointer;transition:color .25s var(--ease),opacity .12s var(--ease)}
 .faq-q:active{opacity:.7}
 .faq-icon{flex-shrink:0;width:22px;height:22px;stroke:var(--accent);stroke-width:1.8;fill:none;stroke-linecap:round;transition:transform .25s var(--ease)}
 .faq-item.is-open .faq-icon{transform:rotate(45deg)}
@@ -57,10 +57,10 @@ button,.btn,.add-btn{-webkit-user-select:none;user-select:none;-webkit-touch-cal
 .faq-a{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .28s var(--ease),visibility 0s linear .28s}
 .faq-item.is-open .faq-a{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .28s var(--ease),visibility 0s}
 .faq-a-inner{min-height:0;overflow:hidden}
-.faq-a-inner p{padding:0 42px 22px 0;color:var(--fg-dim);font-size:16px;line-height:1.6;max-width:62ch}
+.faq-a-inner p{padding:0 42px 22px 0;color:var(--fg-dim);font-size:var(--fs-body);line-height:1.6;max-width:62ch}
 /* на страницах товаров блок стоит внутри .pd */
 .pd-faq{padding:56px 0 24px;border-top:1px solid var(--line)}
-.pd-faq h2{font-size:22px;font-weight:800;margin-bottom:20px}
+.pd-faq h2{font-size:var(--fs-h3);font-weight:800;margin-bottom:20px}
 .pd-faq .faq-list{max-width:820px}
 .pd-faq--flush{border-top:0;padding-top:48px}
 @media(max-width:720px){.pd-faq{padding-top:40px}}
@@ -77,9 +77,9 @@ button,.btn,.add-btn{-webkit-user-select:none;user-select:none;-webkit-touch-cal
     transition:transform .2s var(--ease),opacity .2s var(--ease),visibility 0s linear .2s}
   .buybar.is-visible{transform:translateY(0);opacity:1;visibility:visible;transition:transform .28s var(--ease),opacity .28s var(--ease),visibility 0s}
   .buybar-info{min-width:0;display:flex;flex-direction:column;gap:2px}
-  .buybar-name{font-size:13.5px;font-weight:600;color:var(--fg-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .buybar-price{font-size:19px;font-weight:800;color:var(--fg);font-variant-numeric:tabular-nums}
-  .buybar .add-btn{flex-shrink:0;min-width:156px;min-height:48px;padding:0 22px;justify-content:center;font-size:15px}
+  .buybar-name{font-size:var(--fs-label);font-weight:600;color:var(--fg-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .buybar-price{font-size:var(--fs-h4);font-weight:800;color:var(--fg);font-variant-numeric:tabular-nums}
+  .buybar .add-btn{flex-shrink:0;min-width:156px;min-height:48px;padding:0 22px;justify-content:center;font-size:var(--fs-label)}
   /* панель закрывает низ экрана — оставляем место под ней в конце страницы и над ней показываем уведомление */
   .has-buybar .site-footer{padding-bottom:calc(22px + 76px + env(safe-area-inset-bottom,0px))}
   .buybar-on .toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
