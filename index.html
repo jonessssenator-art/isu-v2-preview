@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#141210" />
+<title>ISU — Свой путь. Свой характер. (Вариант 2)</title>
+<meta name="description" content="ISU — спортивное питание Ислама Махачева. Протеин и креатин для твоего ритма." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0908;
+    --bg-soft:#141210;
+    --fg:#f3ede2;
+    --fg-dim:#cec5b5;
+    --line:rgba(243,237,226,.14);
+    --line-strong:rgba(243,237,226,.22);
+    --accent:#cfc6b4;
+    --accent-dim:#b3a888;
+    --ease:cubic-bezier(.16,.8,.24,1);
+    /* единый левый/правый край текста: шапка, первый экран, секции, нижнее фото и футер начинаются с одной вертикали */
+    --edge:max(32px, calc((100% - 1304px)/2 + 32px));
+  }
+  @media(max-width:720px){:root{--edge:20px}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Manrope',system-ui,sans-serif;
+    line-height:1.4;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+  img{display:block;max-width:100%}
+  svg{display:block}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+  @media(max-width:720px){.wrap{padding:0 20px}}
+  .icon{width:20px;height:20px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ---------- header (структура как на первом сайте: nav / лого / действия) ---------- */
+  .home-skip-link{position:fixed;z-index:100;left:1rem;top:-100px;padding:12px 20px;background:var(--fg);color:var(--bg)}
+  .home-skip-link:focus{top:12px}
+  .site-header{
+    min-height:88px;
+    padding:16px var(--edge);
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;
+    background:var(--bg-soft);border-bottom:1px solid var(--line);position:relative;z-index:40;
+  }
+  .site-header nav{display:flex;align-items:center;gap:36px}
+  .site-header nav a{font-size:15px;font-weight:500;color:var(--fg-dim);transition:color .25s var(--ease)}
+  .site-header nav a:hover{color:var(--fg)}
+  .site-logo{width:130px;justify-self:center}
+  .site-logo img{width:100%;filter:brightness(0) invert(1)}
+  .header-actions{display:flex;align-items:center;justify-content:flex-end;gap:26px}
+  .header-actions > a{font-size:15px;font-weight:500;color:var(--fg-dim);transition:color .25s var(--ease)}
+  .header-actions > a:hover{color:var(--fg)}
+  .cart-btn{
+    display:inline-flex;align-items:center;gap:8px;border:0;background:none;color:var(--fg);
+    padding:8px 0 8px 22px;border-left:1px solid var(--line-strong);white-space:nowrap;font-size:14px;font-weight:600;
+  }
+  .cart-btn:hover{color:var(--accent)}
+  .cart-btn b{color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums}
+  .mobile-menu{display:none}
+  .mobile-menu > button{display:flex;align-items:center;gap:6px;background:none;border:0;color:var(--fg);padding:6px}
+  .mobile-menu nav{
+    position:absolute;top:100%;left:0;right:0;
+    background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:4px var(--edge) 10px;display:flex;flex-direction:column;
+    box-shadow:0 18px 30px rgba(0,0,0,.4);
+    z-index:41;
+  }
+  .mobile-menu nav[hidden]{display:none}
+  .mobile-menu nav a{padding:16px 0;border-top:1px solid var(--line);font-size:16px}
+  .mobile-menu nav a:first-child{border-top:0}
+  @media(max-width:760px){
+    .site-header{padding:14px var(--edge);min-height:72px}
+    .site-header > nav{display:none}
+    .header-actions > a:not(.cart-btn){display:none}
+    .mobile-menu{display:block}
+    .site-logo{width:104px}
+    .cart-btn{border:0;padding-left:0}
+    .cart-btn span{display:none}
+  }
+
+  .story,.catalog,.quality,.answers,.cta{max-width:1304px}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;display:flex;align-items:flex-end;background:var(--bg);min-height:76svh}
+  .hero-media{position:absolute;top:0;left:0;right:0;height:76svh;overflow:hidden}
+  .hero-bg{
+    position:absolute;inset:-8% -8%;
+    background-image:url('assets/pabaku-mountain.png');
+    background-size:cover;background-position:center 82%;
+    will-change:transform;transform:translateY(0);
+  }
+  .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg, rgba(6,5,4,.12) 0%, rgba(6,5,4,.05) 20%, rgba(6,5,4,.3) 52%, rgba(6,5,4,.68) 78%, rgba(10,9,8,1) 100%)}
+  /* нижний блок с фото Ислама (последний на странице): без параллакса, сверху плавно растворяется в тёмный фон */
+  .hero--islam .hero-inner{padding-bottom:44px}
+  /* второй шрифт на сайте (Oswald) — только для этой фразы; остальной сайт на Manrope */
+  .hero-quote{font-family:'Oswald','Arial Narrow',Impact,sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(28px,3.6vw,52px);line-height:1.1;color:var(--fg);text-wrap:balance;text-shadow:0 2px 26px rgba(0,0,0,.5)}
+  .hero--islam .hero-bg{inset:-2% -8% -14% -8%;background-image:url('assets/islam-mountain.jpg');background-position:92% center;will-change:auto}
+  .hero--islam .hero-scrim{background:linear-gradient(180deg, rgba(10,9,8,1) 0%, rgba(10,9,8,.72) 6%, rgba(10,9,8,.4) 13%, rgba(10,9,8,.14) 20%, rgba(10,9,8,0) 28%, rgba(6,5,4,0) 62%, rgba(6,5,4,.5) 84%, rgba(10,9,8,1) 100%)}
+  .hero-inner{position:relative;z-index:2;width:100%;padding:0 var(--edge) 24px;display:flex;flex-direction:row;align-items:flex-end;justify-content:space-between;gap:40px}
+  @media(max-width:720px){
+    .hero{min-height:0;height:auto;display:block}
+    .hero-media{position:relative;top:auto;left:auto;right:auto;height:62vw;margin:16px 16px 0;width:auto;border-radius:18px}
+    .hero-bg{inset:-6% -6%}
+    .hero--islam .hero-bg{inset:-6% -6%;background-position:92% center}
+    .hero-scrim,.hero--islam .hero-scrim{background:linear-gradient(180deg, rgba(6,5,4,0) 0%, rgba(6,5,4,0) 65%, rgba(6,5,4,.4) 100%)}
+    .hero-inner{padding:32px 20px 28px;flex-direction:column;align-items:flex-start;gap:20px}
+    .hero--islam .hero-inner{padding:26px 20px 30px}
+    .hero-quote{font-size:clamp(28px,8vw,40px);text-shadow:none}
+  }
+  .hero-text{text-align:left}
+  .hero-kicker{font-size:14px;letter-spacing:.12em;font-weight:700;color:var(--fg);margin-bottom:12px;text-transform:uppercase}
+  .hero h1{font-size:clamp(22px,3.4vw,44px);font-weight:700;line-height:1.1;letter-spacing:-.015em;white-space:nowrap}
+  @media(max-width:720px){.hero h1{white-space:normal}}
+  .hero-desc{margin-top:14px;font-size:clamp(15px,1.6vw,18px);color:var(--fg-dim);max-width:38ch}
+  .hero-actions{display:flex;align-items:center;justify-content:flex-start;gap:26px;flex-wrap:wrap;flex-shrink:0}
+  .hero-actions .btn{padding:13px 22px;font-size:14px;gap:8px}
+  .hero-actions .text-link{font-size:14px}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#141005;font-weight:700;font-size:15px;padding:15px 24px;border:0;border-radius:99px;transition:transform .4s var(--ease),background .3s var(--ease)}
+  @media(hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-2px);background:#f3ede2}}
+  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+  .text-link{font-size:15px;font-weight:600;color:var(--fg);opacity:.75;border-bottom:1px solid var(--line);padding-bottom:2px;transition:opacity .3s var(--ease)}
+  .text-link:hover{opacity:1}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.is-in{opacity:1;transform:translateY(0)}
+  .reveal-1.is-in{transition-delay:.08s}
+  .reveal-2.is-in{transition-delay:.16s}
+
+/* ---------- section shared ---------- */
+  .kicker{font-size:14px;letter-spacing:.12em;font-weight:700;color:var(--accent);text-transform:uppercase;margin-bottom:16px}
+  section h2{font-size:clamp(28px,4.6vw,52px);font-weight:800;letter-spacing:-.01em;line-height:1.08}
+
+  /* ---------- story ---------- */
+  .story{padding-top:72px;padding-bottom:88px}
+  @media(max-width:720px){.story{padding-top:56px;padding-bottom:56px}}
+  .story-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+  @media(max-width:900px){.story-grid{grid-template-columns:1fr;gap:48px}}
+  .story-copy p{margin-top:14px;color:var(--fg-dim);font-size:17px;line-height:1.55;max-width:42ch}
+  .story-copy h3{font-size:clamp(22px,2.6vw,28px);font-weight:800;letter-spacing:-.005em;margin-top:38px}
+  .story-signature{width:140px;margin-top:30px;filter:brightness(0) invert(1);opacity:.85}
+  .story-note{margin-top:28px;font-size:16px;color:var(--fg);border-left:2px solid var(--accent);padding-left:16px;line-height:1.6}
+  .story-frame{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:1199/800;border:1px solid var(--line);background:#1c140d}
+  .story-frame img{width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
+  .story-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,8,0) 55%,rgba(10,9,8,.75) 100%)}
+  .story-frame-label{position:absolute;left:20px;bottom:18px;z-index:2;font-size:13px;letter-spacing:.08em;font-weight:600;color:var(--fg);text-transform:uppercase}
+
+  /* ---------- catalog ---------- */
+  .catalog{padding-top:80px;padding-bottom:96px}
+  @media(max-width:720px){.catalog{padding-top:60px;padding-bottom:64px}}
+  .catalog-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+  .catalog-head p{color:var(--fg-dim);max-width:38ch;font-size:16px}
+  .catalog-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+  @media(max-width:900px){.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:480px){.catalog-grid{grid-template-columns:minmax(0,1fr)}}
+  .product-card{position:relative;border:1px solid transparent;border-radius:18px;overflow:hidden;background:var(--bg-soft);display:flex;flex-direction:column;transition:border-color .35s var(--ease)}
+  @media(hover:hover) and (pointer:fine){.product-card:hover{border-color:rgba(207,198,180,.55)}}
+  .product-card-link{position:absolute;inset:0;z-index:1}
+  .product-media{width:53%;margin:18px auto 0;aspect-ratio:1768/2667;overflow:hidden;position:relative;border-radius:12px;background:transparent}
+  /* в картинке-склейке под банкой ~3.9% прозрачного поля: опускаем её на эту величину, чтобы низ банки совпал с низом рамки (как у креатина) */
+  .product-media img{position:absolute;left:0;bottom:-3.9%;width:300%;height:auto;max-width:none;transform:translate(0,0);transition:transform .5s var(--ease)}
+  /* креатин: рамка как у банок протеина (чтобы текст ниже был на одном уровне), сама картинка — вдвое меньше */
+  .product-media.single{width:53%;aspect-ratio:1768/2667;display:flex;align-items:flex-end;justify-content:center}
+  .product-media.single img{position:static;width:auto;height:50%;max-width:none;object-fit:contain;transform:none}
+  .product-body{padding:24px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .product-eyebrow{font-size:13px;letter-spacing:.07em;font-weight:600;color:var(--fg-dim);text-transform:uppercase}
+  .product-body h3{font-size:20px;font-weight:800;line-height:1.2}
+  .product-desc{color:var(--fg-dim);font-size:15px;line-height:1.5;max-width:42ch}
+  .flavour-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .flavour-label{font-size:13px;color:var(--fg-dim);letter-spacing:.04em}
+  .flavour-pill{
+    position:relative;z-index:2;
+    display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-strong);
+    background:transparent;color:var(--fg-dim);border-radius:99px;padding:6px 11px 6px 8px;font-size:12px;font-weight:600;
+    transition:border-color .25s var(--ease),color .25s var(--ease);
+  }
+  .flavour-pill i{width:9px;height:9px;border-radius:50%;display:block;background:var(--swatch,#888)}
+  .flavour-pill[aria-pressed="true"]{border-color:var(--accent);color:var(--fg)}
+  .assortment-list{display:flex;flex-wrap:wrap;gap:7px}
+  .assortment-tag{font-size:13px;color:var(--fg-dim);border:1px solid var(--line);border-radius:99px;padding:5px 10px}
+  .product-controls{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:14px;border-top:1px solid var(--line);flex-wrap:wrap}
+  .product-price{font-size:19px;font-weight:800}
+  .add-btn{
+    position:relative;z-index:2;
+    display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#141005;font-weight:700;font-size:14px;
+    padding:11px 16px;border:0;border-radius:99px;transition:transform .3s var(--ease),background .3s var(--ease);white-space:nowrap;
+  }
+  @media(hover:hover) and (pointer:fine){.add-btn:hover{transform:translateY(-2px);background:#f3ede2}}
+  .add-btn.is-added{background:#4b7a5a;color:#f3ede2}
+
+  /* ---------- заголовок секции (общий) ---------- */
+  .section-head{max-width:62ch;margin-bottom:28px}
+  .section-head h2{font-size:clamp(26px,3.2vw,38px)}
+  .section-head p:not(.kicker){margin-top:14px;color:var(--fg-dim);font-size:17px;line-height:1.55}
+
+  /* ---------- cta ---------- */
+  .cta{padding-top:104px;padding-bottom:72px;text-align:center;border-top:1px solid var(--line)}
+  @media(max-width:720px){.cta{padding-top:64px;padding-bottom:64px}}
+  .cta h2{max-width:16ch;margin:0 auto 36px}
+  .cta .btn{padding:17px 30px;font-size:16px}
+
+  /* ---------- footer (структура как на первом сайте) ---------- */
+  .site-footer{padding:26px var(--edge);display:flex;align-items:center;justify-content:space-between;gap:40px;min-height:90px;border-top:1px solid var(--line);flex-wrap:wrap;background:var(--bg-soft)}
+  .site-footer > a{width:96px;flex-shrink:0}
+  .site-footer img{width:100%;filter:brightness(0) invert(1);opacity:.9}
+  .site-footer nav{display:flex;align-items:center;gap:26px;font-size:15px;color:var(--fg-dim);flex-wrap:wrap}
+  .site-footer nav a:hover{color:var(--fg)}
+  .footer-domain{font-size:14px;color:var(--fg-dim);letter-spacing:.02em;transition:color .25s var(--ease)}
+  .footer-domain:hover{color:var(--accent)}
+  @media(max-width:600px){
+    .site-footer{padding:20px var(--edge) 22px;justify-content:flex-start;flex-direction:column;align-items:flex-start;gap:14px;min-height:0}
+    .site-footer nav{gap:10px 18px;font-size:13px}
+    .site-footer > a{width:76px}
+  }
+
+  /* ---------- cart drawer ---------- */
+  .cart-overlay{position:fixed;inset:0;background:rgba(6,5,4,.6);z-index:90;opacity:0;pointer-events:none;transition:opacity .35s var(--ease)}
+  .cart-overlay.is-open{opacity:1;pointer-events:auto}
+  .cart-drawer{
+    position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);z-index:91;
+    background:var(--bg-soft);border-left:1px solid var(--line);
+    display:flex;flex-direction:column;padding:26px 24px 24px;
+    transform:translateX(100%);transition:transform .45s var(--ease);
+  }
+  .cart-drawer.is-open{transform:translateX(0)}
+  .cart-drawer-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .cart-drawer-head button{background:none;border:0;color:var(--fg)}
+  .cart-drawer-head h2{font-size:24px;font-weight:800;margin-top:6px}
+  .cart-drawer-head h2 span{color:var(--fg-dim);font-weight:600;font-size:16px}
+  .cart-lines{margin-top:24px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:18px}
+  .cart-line{display:grid;grid-template-columns:54px 1fr auto;gap:14px;align-items:center}
+  .cart-thumb{width:54px;height:72px;border-radius:10px;overflow:hidden;background:transparent;position:relative}
+  .cart-thumb img{position:absolute;left:0;bottom:0;width:300%;max-width:none;transform:translate(0,0)}
+  .cart-thumb img.single{position:static;width:82%;height:82%;margin:9%;object-fit:contain;transform:none}
+  .cart-line-main a{font-size:14.5px;font-weight:700}
+  .cart-line-main p{font-size:13.5px;color:var(--fg-dim);margin-top:2px}
+  .cart-line-qty{display:flex;align-items:center;gap:2px;margin-top:8px;border:1px solid var(--line-strong);border-radius:99px;padding:3px;width:max-content}
+  .cart-line-qty button{width:24px;height:24px;border-radius:50%;border:0;background:none;color:var(--fg);display:flex;align-items:center;justify-content:center}
+  .cart-line-qty button:hover{background:var(--line)}
+  .cart-line-qty button:disabled{opacity:.35;cursor:not-allowed}
+  .cart-line-qty span{min-width:1.6ch;text-align:center;font-size:13px;font-weight:700}
+  .cart-line-end{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+  .cart-line-end b{font-size:14px;font-weight:800}
+  .cart-line-end button{background:none;border:0;color:var(--fg-dim)}
+  .cart-line-end button:hover{color:var(--accent)}
+  .cart-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;color:var(--fg-dim);padding:40px 0}
+  .cart-empty h3{color:var(--fg);font-size:20px;font-weight:800}
+  .cart-bottom{border-top:1px solid var(--line);padding-top:18px;margin-top:18px;display:flex;flex-direction:column;gap:12px}
+  .cart-total-row{display:flex;align-items:center;justify-content:space-between;font-size:16px}
+  .cart-total-row b{font-size:20px;font-weight:800}
+  .cart-note{font-size:13.5px;color:var(--fg-dim)}
+  .cart-promo{display:flex;gap:8px}
+  .cart-promo input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line-strong);border-radius:99px;padding:12px 16px;color:var(--fg);font-size:14px;font-family:inherit}
+  .cart-promo input::placeholder{color:var(--fg-dim)}
+  .cart-promo input:focus{outline:none;border-color:var(--accent)}
+  .cart-promo button{background:none;border:1px solid var(--line-strong);border-radius:99px;padding:12px 18px;color:var(--fg);font-weight:700;font-size:13px;white-space:nowrap;transition:border-color .25s var(--ease),color .25s var(--ease)}
+  .cart-promo button:hover{border-color:var(--accent);color:var(--accent)}
+  .cart-promo-note{font-size:13.5px;color:var(--fg-dim);display:none}
+  .cart-promo-note.is-visible{display:block}
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed;left:24px;right:24px;bottom:24px;z-index:95;display:flex;align-items:flex-start;gap:12px;
+    background:var(--bg-soft);border:1px solid var(--line-strong);border-radius:14px;padding:16px 18px;
+    max-width:340px;box-shadow:0 20px 40px rgba(0,0,0,.4);
+    transform:translateY(20px);opacity:0;pointer-events:none;transition:transform .4s var(--ease),opacity .4s var(--ease);
+  }
+  .toast.is-visible{transform:translateY(0);opacity:1;pointer-events:auto}
+  .toast-icon{width:36px;height:36px;border-radius:50%;background:rgba(207,198,180,.18);color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .toast strong{font-size:14px;display:block}
+  .toast p{font-size:14px;color:var(--fg-dim);margin-top:2px}
+  .toast a{font-size:13.5px;font-weight:700;color:var(--accent);display:inline-block;margin-top:8px}
+  .toast-close{position:absolute;top:10px;right:10px;background:none;border:0;color:var(--fg-dim)}
+</style>
+<link rel="stylesheet" href="assets/ui-components.css" />
+</head>
+<body>
+
+  <a class="home-skip-link" href="#main-content">Перейти к содержимому</a>
+
+  <header class="site-header">
+    <nav aria-label="Основная навигация">
+      <a href="#products">Продукция</a>
+      <a href="#story">Об ISU</a>
+    </nav>
+    <div class="mobile-menu">
+      <button type="button" id="menuToggle" aria-label="Открыть меню" aria-expanded="false">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <nav id="mobileNav" hidden>
+        <a href="#products">Продукция</a>
+        <a href="#story">Об ISU</a>
+      </nav>
+    </div>
+    <a href="#top" class="site-logo" aria-label="ISU — главная"><img src="assets/isu-logo.svg" alt="ISU" /></a>
+    <div class="header-actions">
+      <button type="button" class="cart-btn" id="cartOpenBtn" aria-label="Открыть корзину">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span>Корзина</span>
+        <b id="cartCount">0</b>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+  <section class="hero" id="top">
+    <div class="hero-media">
+      <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-scrim"></div>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-kicker">ISU · Спортивное питание</p>
+        <h1>Свой путь. Свой характер.</h1>
+      </div>
+      <div class="hero-actions">
+        <a class="btn" href="#products">Выбрать продукт →</a>
+        <a class="text-link" href="#story">История ISU</a>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="catalog wrap" id="products">
+    <div class="catalog-head">
+      <div>
+        <p class="kicker">Каталог</p>
+        <h2>Свой вкус.<br />Один стандарт.</h2>
+      </div>
+      <p>Протеин в трёх вкусах и креатин в порционных стиках. Состав, порции и рекомендации — на странице продукта.</p>
+    </div>
+    <div class="catalog-grid">
+
+      <article class="product-card" data-product="protein">
+        <a class="product-card-link" href="product-protein.html?flavour=Шоколад" aria-label="Подробнее: протеин ISU, Шоколад"></a>
+        <div class="product-media">
+          <img src="assets/protein-cutout.png" alt="Протеин ISU — Шоколад" style="transform:translate(0,0)" />
+        </div>
+        <div class="product-body">
+          <p class="product-eyebrow">Whey Protein · 900 г</p>
+          <h3>Протеин · Шоколад</h3>
+          <p class="product-desc">Сывороточный белок для коктейля — после тренировки или днём.</p>
+          <div class="product-controls">
+            <span class="product-price">3 900 ₽</span>
+            <button type="button" class="add-btn" data-add="protein" data-flavour="Шоколад">
+              <svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+              В корзину
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-product="protein">
+        <a class="product-card-link" href="product-protein.html?flavour=Ваниль" aria-label="Подробнее: протеин ISU, Ваниль"></a>
+        <div class="product-media">
+          <img src="assets/protein-cutout.png" alt="Протеин ISU — Ваниль" style="transform:translate(-33.3333%,0)" />
+        </div>
+        <div class="product-body">
+          <p class="product-eyebrow">Whey Protein · 900 г</p>
+          <h3>Протеин · Ваниль</h3>
+          <p class="product-desc">Сывороточный белок для коктейля — после тренировки или днём.</p>
+          <div class="product-controls">
+            <span class="product-price">3 900 ₽</span>
+            <button type="button" class="add-btn" data-add="protein" data-flavour="Ваниль">
+              <svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+              В корзину
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-product="protein">
+        <a class="product-card-link" href="product-protein.html?flavour=Клубника" aria-label="Подробнее: протеин ISU, Клубника"></a>
+        <div class="product-media">
+          <img src="assets/protein-cutout.png" alt="Протеин ISU — Клубника" style="transform:translate(-66.6667%,0)" />
+        </div>
+        <div class="product-body">
+          <p class="product-eyebrow">Whey Protein · 900 г</p>
+          <h3>Протеин · Клубника</h3>
+          <p class="product-desc">Сывороточный белок для коктейля — после тренировки или днём.</p>
+          <div class="product-controls">
+            <span class="product-price">3 900 ₽</span>
+            <button type="button" class="add-btn" data-add="protein" data-flavour="Клубника">
+              <svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+              В корзину
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-product="creatine">
+        <a class="product-card-link" href="product-creatine.html" aria-label="Подробнее: креатин ISU"></a>
+        <div class="product-media single">
+          <img src="assets/creatine-tube-stick.webp" alt="Креатин ISU — тубус ассорти на 20 стиков и отдельный стик" />
+        </div>
+        <div class="product-body">
+          <p class="product-eyebrow">Creatine · 20 стиков</p>
+          <h3>Креатин · Ассорти</h3>
+          <p class="product-desc">Креатин в порционных стиках — удобно взять на тренировку.</p>
+          <div class="product-controls">
+            <span class="product-price">2 400 ₽</span>
+            <button type="button" class="add-btn" data-add="creatine">
+              <svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+              В корзину
+            </button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="story wrap" id="story">
+    <div class="story-grid">
+      <div class="story-copy reveal">
+        <p class="kicker">Об ISU</p>
+        <h2>Имя ISU</h2>
+        <p>ISU — так Ислама называли в детстве. Это имя носит бренд его спортивного питания.</p>
+        <h3>Гора Пабаку</h3>
+        <p>Гора рядом с родовым селом Ислама Махачева в Дагестане. Здесь формировался характер: дисциплина, уважение к своему делу и умение не сворачивать с пути.</p>
+        <p class="story-note">Сила начинается с корней.</p>
+        <img class="story-signature" src="assets/signature.svg" alt="Islam Makhachev" />
+      </div>
+      <div class="story-frame reveal reveal-2">
+        <img src="assets/pabaku-photo.jpg" alt="Гора Пабаку" />
+        <span class="story-frame-label">Гора Пабаку, Дагестан</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq wrap" id="faq">
+    <div class="faq-layout">
+      <div class="section-head reveal">
+        <p class="kicker">Вопросы и ответы</p>
+        <h2>Частые вопросы</h2>
+        <p>Коротко. Подробности — на странице продукта.</p>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <h3><button type="button" class="faq-q" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1"><span>Чем протеин отличается от креатина?</span><svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></h3>
+          <div class="faq-a" id="faq-a-1"><div class="faq-a-inner"><p>Протеин — сывороточный белок, банка 900 г. Креатин — креатин моногидрат в стиках, 20 штук в тубусе.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button type="button" class="faq-q" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2"><span>Какие бывают вкусы?</span><svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></h3>
+          <div class="faq-a" id="faq-a-2"><div class="faq-a-inner"><p>Протеин: шоколад, ваниль, клубника. Креатин: ассорти — кола-вишня, тропический микс, ягодный микс, персик.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button type="button" class="faq-q" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3"><span>Как оформить заказ?</span><svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></h3>
+          <div class="faq-a" id="faq-a-3"><div class="faq-a-inner"><p>Добавьте продукты в корзину и нажмите «Оформить заказ». Можно брать несколько вкусов, до 20 штук каждого.</p></div></div>
+        </div>
+        <div class="faq-item" id="delivery">
+          <h3><button type="button" class="faq-q" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4"><span>Как доставляете?</span><svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></h3>
+          <div class="faq-a" id="faq-a-4"><div class="faq-a-inner"><p>СДЭК из Махачкалы по России и СНГ, ориентир — 3–6 дней. Есть самовывоз в Махачкале. Стоимость видна при оформлении, до подтверждения заказа. Условия предварительные.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button type="button" class="faq-q" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5"><span>Как оплатить?</span><svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></h3>
+          <div class="faq-a" id="faq-a-5"><div class="faq-a-inner"><p>Пока это заявка: менеджер согласует оплату, деньги не списываются. Онлайн-оплату через ЮKassa подключим перед запуском.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button type="button" class="faq-q" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6"><span>Кто производит и где?</span><svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></h3>
+          <div class="faq-a" id="faq-a-6"><div class="faq-a-inner"><p>Производитель и место производства уточняются. Покажем, когда подтвердим.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button type="button" class="faq-q" id="faq-q-7" aria-expanded="false" aria-controls="faq-a-7"><span>Где состав и документы?</span><svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></h3>
+          <div class="faq-a" id="faq-a-7"><div class="faq-a-inner"><p>На странице продукта. Этикетка (состав, пищевая ценность, аллергены), СГР и протоколы испытаний готовятся. Публикуем только подтверждённое.</p></div></div>
+        </div>
+        <div class="faq-item" id="support">
+          <h3><button type="button" class="faq-q" id="faq-q-8" aria-expanded="false" aria-controls="faq-a-8"><span>Куда обратиться с вопросом?</span><svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></h3>
+          <div class="faq-a" id="faq-a-8"><div class="faq-a-inner"><p>Поддержка — в Telegram, ссылку добавим перед запуском. Условия для дистрибьюторов появятся здесь.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta wrap">
+    <p class="kicker reveal">Ваш ритм. Ваш выбор.</p>
+    <h2 class="reveal">Начните с продукта ISU.</h2>
+  </section>
+
+  <section class="hero hero--islam">
+    <div class="hero-media" role="img" aria-label="Ислам Махачев на фоне гор">
+      <div class="hero-bg"></div>
+      <div class="hero-scrim"></div>
+    </div>
+    <div class="hero-inner">
+      <p class="hero-quote">Сила начинается с корней.</p>
+    </div>
+  </section>
+  </main>
+
+  <footer class="site-footer">
+    <a href="#top" aria-label="ISU — главная"><img src="assets/isu-logo.svg" alt="ISU" /></a>
+    <nav aria-label="Навигация внизу страницы">
+      <a href="#products">Продукция</a>
+      <a href="#story">Об ISU</a>
+      <a href="#delivery">Доставка</a>
+      <a href="#support">Поддержка</a>
+      <a href="#support">Дистрибьюторам</a>
+    </nav>
+    <a class="footer-domain" href="https://isusport.ru" target="_blank" rel="noopener">isusport.ru</a>
+  </footer>
+
+  <!-- cart -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Корзина">
+    <div class="cart-drawer-head">
+      <div>
+        <p class="kicker" style="margin-bottom:4px">ISU / Ваш выбор</p>
+        <h2>Ваша корзина <span id="cartDrawerCount">(0)</span></h2>
+      </div>
+      <button type="button" id="cartCloseBtn" aria-label="Закрыть корзину">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="cartLines" class="cart-lines"></div>
+    <div id="cartBottom" class="cart-bottom" hidden>
+      <div class="cart-promo">
+        <input type="text" id="promoInput" placeholder="Промокод" autocomplete="off" />
+        <button type="button" id="promoApplyBtn">Применить</button>
+      </div>
+      <p class="cart-promo-note" id="promoNote">Это демо-макет: проверку промокодов подключим позже.</p>
+      <div class="cart-total-row"><span>Товары</span><b id="cartTotal">0 ₽</b></div>
+      <p class="cart-note">Доставка рассчитывается на следующем шаге.</p>
+      <a class="btn" id="checkoutBtn" href="checkout.html" style="justify-content:center">Оформить заказ →</a>
+    </div>
+  </aside>
+
+  <!-- toast -->
+  <div class="toast" id="toast">
+    <span class="toast-icon"><svg class="icon" viewBox="0 0 24 24" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg></span>
+    <div>
+      <strong>Товар добавлен в корзину</strong>
+      <p id="toastText"></p>
+      <a href="#" id="toastLink">Посмотреть корзину →</a>
+    </div>
+    <button type="button" class="toast-close" id="toastClose" aria-label="Закрыть уведомление">
+      <svg class="icon" viewBox="0 0 24 24" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <script>
+    // ---------- scroll reveal ----------
+    var revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+      revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('is-in'); });
+    }
+
+    // ---------- hero parallax ----------
+    var heroBg = document.getElementById('heroBg');
+    var ticking = false;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.addEventListener('scroll', function () {
+      if (!ticking && !reduceMotion) {
+        window.requestAnimationFrame(function () {
+          var y = window.scrollY || 0;
+          var cap = window.innerWidth <= 720 ? 12 : 160;
+          heroBg.style.transform = 'translateY(' + Math.min(y * 0.28, cap) + 'px)';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // ---------- mobile menu ----------
+    var menuToggle = document.getElementById('menuToggle');
+    var mobileNav = document.getElementById('mobileNav');
+    menuToggle.addEventListener('click', function () {
+      var isOpen = !mobileNav.hidden;
+      mobileNav.hidden = isOpen;
+      menuToggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    // ---------- product data ----------
+    var PRODUCTS = {
+      protein: { name: 'Протеин ISU', format: '900 г', price: 3900, image: 'assets/protein-cutout.png', flavours: ['Шоколад', 'Ваниль', 'Клубника'] },
+      creatine: { name: 'Креатин ISU', format: '20 стиков', price: 2400, image: 'assets/creatine-cutout.png', single: true }
+    };
+    var money = function (n) { return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(n) + ' ₽'; };
+
+    // ---------- cart state ----------
+    var CART_KEY = 'isu-v2-mock-cart';
+    var cart = [];
+    try { cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch (e) { cart = []; }
+
+    function saveCart() { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {} }
+
+    function addToCart(productId, variant, qty) {
+      var line = cart.find(function (l) { return l.productId === productId && l.variant === variant; });
+      if (line) { line.quantity = Math.min(20, line.quantity + qty); }
+      else { cart.push({ productId: productId, variant: variant, quantity: qty }); }
+      saveCart();
+      renderCart();
+      showToast(PRODUCTS[productId].name, variant, qty);
+    }
+
+    function changeLineQty(index, delta) {
+      var line = cart[index];
+      if (!line) return;
+      line.quantity = Math.max(1, Math.min(20, line.quantity + delta));
+      saveCart();
+      renderCart();
+    }
+
+    function removeLine(index) {
+      cart.splice(index, 1);
+      saveCart();
+      renderCart();
+    }
+
+    function cartCount() { return cart.reduce(function (s, l) { return s + l.quantity; }, 0); }
+    function cartTotal() { return cart.reduce(function (s, l) { return s + PRODUCTS[l.productId].price * l.quantity; }, 0); }
+
+    function thumbImg(productId, variant) {
+      var p = PRODUCTS[productId];
+      if (p.single) return '<img class="single" src="' + p.image + '" alt="">';
+      var idx = p.flavours.indexOf(variant);
+      var shift = (Math.max(0, idx) * 100 / 3);
+      return '<img src="' + p.image + '" alt="" style="transform:translate(-' + shift + '%,0)">';
+    }
+
+    function renderCart() {
+      var count = cartCount();
+      document.getElementById('cartCount').textContent = count;
+      document.getElementById('cartDrawerCount').textContent = '(' + count + ')';
+      var linesEl = document.getElementById('cartLines');
+      var bottomEl = document.getElementById('cartBottom');
+      if (!cart.length) {
+        linesEl.innerHTML = '<div class="cart-empty">' +
+          '<svg class="icon" viewBox="0 0 24 24" width="38" height="38"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>' +
+          '<h3>Корзина пока пуста</h3><p>Добавьте протеин или креатин ISU.</p>' +
+          '<a class="btn" href="#products" id="cartEmptyCta">Выбрать продукт →</a></div>';
+        bottomEl.hidden = true;
+        var emptyCta = document.getElementById('cartEmptyCta');
+        if (emptyCta) emptyCta.addEventListener('click', closeCart);
+        return;
+      }
+      linesEl.innerHTML = cart.map(function (line, index) {
+        var p = PRODUCTS[line.productId];
+        return '<div class="cart-line">' +
+          '<div class="cart-thumb">' + thumbImg(line.productId, line.variant) + '</div>' +
+          '<div class="cart-line-main">' +
+            '<a href="#products">' + p.name + '</a>' +
+            '<p>' + line.variant + ' · ' + p.format + '</p>' +
+            '<div class="cart-line-qty">' +
+              '<button type="button" data-cart-step="-1" data-idx="' + index + '" aria-label="Уменьшить количество" ' + (line.quantity <= 1 ? 'disabled' : '') + '>−</button>' +
+              '<span>' + line.quantity + '</span>' +
+              '<button type="button" data-cart-step="1" data-idx="' + index + '" aria-label="Увеличить количество">+</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="cart-line-end">' +
+            '<b>' + money(p.price * line.quantity) + '</b>' +
+            '<button type="button" data-cart-remove data-idx="' + index + '" aria-label="Удалить из корзины: ' + p.name + ', ' + line.variant + '">' +
+              '<svg class="icon" viewBox="0 0 24 24" width="16" height="16"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>' +
+            '</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      linesEl.querySelectorAll('[data-cart-step]').forEach(function (btn) {
+        btn.addEventListener('click', function () { changeLineQty(Number(btn.dataset.idx), Number(btn.dataset.cartStep)); });
+      });
+      linesEl.querySelectorAll('[data-cart-remove]').forEach(function (btn) {
+        btn.addEventListener('click', function () { removeLine(Number(btn.dataset.idx)); });
+      });
+      document.getElementById('cartTotal').textContent = money(cartTotal());
+      bottomEl.hidden = false;
+      document.getElementById('promoNote').classList.remove('is-visible');
+    }
+
+    // ---------- add-to-cart buttons ----------
+    document.querySelectorAll('[data-add]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var productId = btn.dataset.add;
+        var qty = 1;
+        var variant = productId === 'protein'
+          ? (btn.dataset.flavour || PRODUCTS.protein.flavours[0])
+          : 'Микс вкусов';
+        addToCart(productId, variant, qty);
+        btn.classList.add('is-added');
+        var original = btn.innerHTML;
+        btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> Добавлено';
+        setTimeout(function () { btn.classList.remove('is-added'); btn.innerHTML = original; }, 1400);
+      });
+    });
+
+    // ---------- drawer open/close ----------
+    var overlay = document.getElementById('cartOverlay');
+    var drawer = document.getElementById('cartDrawer');
+    function openCart() { overlay.classList.add('is-open'); drawer.classList.add('is-open'); }
+    function closeCart() { overlay.classList.remove('is-open'); drawer.classList.remove('is-open'); }
+    document.getElementById('cartOpenBtn').addEventListener('click', openCart);
+    document.getElementById('cartCloseBtn').addEventListener('click', closeCart);
+    overlay.addEventListener('click', closeCart);
+    document.getElementById('promoApplyBtn').addEventListener('click', function () {
+      document.getElementById('promoNote').classList.add('is-visible');
+    });
+
+    // ---------- toast ----------
+    var toast = document.getElementById('toast');
+    var toastTimer;
+    function showToast(name, variant, qty) {
+      document.getElementById('toastText').textContent = name + ' · ' + variant + ' · ' + qty + ' шт.';
+      toast.classList.add('is-visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toast.classList.remove('is-visible'); }, 4500);
+    }
+    document.getElementById('toastClose').addEventListener('click', function () { toast.classList.remove('is-visible'); });
+    document.getElementById('toastLink').addEventListener('click', function (e) { e.preventDefault(); toast.classList.remove('is-visible'); openCart(); });
+
+    renderCart();
+  </script>
+  <script src="assets/ui-components.js"></script>
+</body>
+</html>
