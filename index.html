@@ -177,9 +177,9 @@
   .product-media{width:53%;margin:18px auto 0;aspect-ratio:1768/2667;overflow:hidden;position:relative;border-radius:12px;background:transparent}
   /* в картинке-склейке под банкой ~3.9% прозрачного поля: опускаем её на эту величину, чтобы низ банки совпал с низом рамки (как у креатина) */
   .product-media img{position:absolute;left:0;bottom:-3.9%;width:300%;height:auto;max-width:none;transform:translate(0,0);transition:transform .5s var(--ease)}
-  /* креатин: рамка как у банок протеина (чтобы текст ниже был на одном уровне), сама картинка — вдвое меньше */
+  /* креатин: рамка как у банок протеина (чтобы текст ниже был на одном уровне), сама банка — 65% высоты рамки (было 50%, +30%) */
   .product-media.single{width:53%;aspect-ratio:1768/2667;display:flex;align-items:flex-end;justify-content:center}
-  .product-media.single img{position:static;width:auto;height:50%;max-width:none;object-fit:contain;transform:none}
+  .product-media.single img{position:static;width:auto;height:65%;max-width:none;object-fit:contain;transform:none}
   .product-body{padding:24px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
   .product-eyebrow{font-size:var(--fs-label);letter-spacing:.07em;font-weight:600;color:var(--fg-dim);text-transform:uppercase}
   .product-body h3{font-size:var(--fs-h4);font-weight:800;line-height:1.2}
@@ -430,7 +430,7 @@
       <article class="product-card reveal" style="--i:3" data-product="creatine">
         <a class="product-card-link" href="product-creatine.html" aria-label="Подробнее: креатин ISU"></a>
         <div class="product-media single">
-          <img src="assets/creatine-tube-stick.webp" alt="Креатин ISU — тубус ассорти на 20 стиков и отдельный стик" />
+          <img src="assets/creatine-jar.webp" alt="Креатин ISU — банка, ассорти вкусов, 20 стиков" />
         </div>
         <div class="product-body">
           <p class="product-eyebrow">Creatine · 20 стиков</p>
