@@ -174,8 +174,29 @@
   .toast-close{position:absolute;top:10px;right:10px;background:none;border:0;color:var(--fg-dim)}
 </style>
 <link rel="stylesheet" href="assets/ui-components.css" />
+<script>
+/* заставка при загрузке: при обновлении страницы — всегда, при заходе на сайт — один раз за визит, между страницами и по «назад» — нет */
+(function(){try{
+  var h=document.documentElement,nav=performance.getEntriesByType('navigation')[0],type=nav?nav.type:'navigate',seen=false;
+  try{seen=!!sessionStorage.getItem('isuSplash');sessionStorage.setItem('isuSplash','1')}catch(e){}
+  if(!seen&&document.referrer.indexOf(location.origin)===0)seen=true;
+  if(type!=='reload'&&(type!=='navigate'||seen))return;
+  h.classList.add('splash-on');
+  var t0=performance.now(),go=function(){h.classList.add('splash-go')};
+  window.addEventListener('load',function(){setTimeout(go,Math.max(0,900-(performance.now()-t0)))});
+  setTimeout(go,4000);
+  document.addEventListener('animationend',function(e){if(e.target.id==='splash')e.target.remove()});
+}catch(e){}})();
+</script>
 </head>
 <body class="has-buybar">
+
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash-inner">
+      <img class="splash-logo" src="assets/isu-logo.svg" alt="" />
+      <div class="splash-line"></div>
+    </div>
+  </div>
 
   <a class="home-skip-link" href="#main-content">Перейти к содержимому</a>
 
@@ -208,10 +229,10 @@
     <a class="back-link" href="index.html#products">← Каталог</a>
 
     <div class="pd-hero">
-      <div class="pd-media">
+      <div class="pd-media splash-in" style="--i:0">
         <img src="assets/creatine-tube-sticks.webp" alt="Креатин ISU — тубус на 20 стиков и четыре стика: кола-вишня, тропический микс, ягодный микс, персик" />
       </div>
-      <div class="pd-info">
+      <div class="pd-info splash-in" style="--i:1">
         <p class="kicker">ISU / Creatine</p>
         <h1 class="pd-title">Креатин ISU. Ассорти.</h1>
         <p class="pd-draft-note">Предварительная карточка. Характеристики и схема приёма заполнены по продукту-образцу и требуют подтверждения производителем ISU перед продажей.</p>

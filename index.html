@@ -282,8 +282,29 @@
   .toast-close{position:absolute;top:10px;right:10px;background:none;border:0;color:var(--fg-dim)}
 </style>
 <link rel="stylesheet" href="assets/ui-components.css" />
+<script>
+/* заставка при загрузке: при обновлении страницы — всегда, при заходе на сайт — один раз за визит, между страницами и по «назад» — нет */
+(function(){try{
+  var h=document.documentElement,nav=performance.getEntriesByType('navigation')[0],type=nav?nav.type:'navigate',seen=false;
+  try{seen=!!sessionStorage.getItem('isuSplash');sessionStorage.setItem('isuSplash','1')}catch(e){}
+  if(!seen&&document.referrer.indexOf(location.origin)===0)seen=true;
+  if(type!=='reload'&&(type!=='navigate'||seen))return;
+  h.classList.add('splash-on');
+  var t0=performance.now(),go=function(){h.classList.add('splash-go')};
+  window.addEventListener('load',function(){setTimeout(go,Math.max(0,900-(performance.now()-t0)))});
+  setTimeout(go,4000);
+  document.addEventListener('animationend',function(e){if(e.target.id==='splash')e.target.remove()});
+}catch(e){}})();
+</script>
 </head>
 <body>
+
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash-inner">
+      <img class="splash-logo" src="assets/isu-logo.svg" alt="" />
+      <div class="splash-line"></div>
+    </div>
+  </div>
 
   <a class="home-skip-link" href="#main-content">Перейти к содержимому</a>
 
@@ -319,10 +340,10 @@
     </div>
     <div class="hero-inner">
       <div class="hero-text">
-        <p class="hero-kicker">ISU · Спортивное питание</p>
-        <h1>Свой путь. Свой характер.</h1>
+        <p class="hero-kicker splash-in" style="--i:0">ISU · Спортивное питание</p>
+        <h1 class="splash-in" style="--i:1">Свой путь. Свой характер.</h1>
       </div>
-      <div class="hero-actions">
+      <div class="hero-actions splash-in" style="--i:2">
         <a class="btn" href="#products">Выбрать продукт →</a>
         <a class="text-link" href="#story">История ISU</a>
       </div>
@@ -340,7 +361,7 @@
     </div>
     <div class="catalog-grid">
 
-      <article class="product-card" data-product="protein">
+      <article class="product-card reveal" style="--i:0" data-product="protein">
         <a class="product-card-link" href="product-protein.html?flavour=Шоколад" aria-label="Подробнее: протеин ISU, Шоколад"></a>
         <div class="product-media">
           <img src="assets/protein-cutout.png" alt="Протеин ISU — Шоколад" style="transform:translate(0,0)" />
@@ -359,7 +380,7 @@
         </div>
       </article>
 
-      <article class="product-card" data-product="protein">
+      <article class="product-card reveal" style="--i:1" data-product="protein">
         <a class="product-card-link" href="product-protein.html?flavour=Ваниль" aria-label="Подробнее: протеин ISU, Ваниль"></a>
         <div class="product-media">
           <img src="assets/protein-cutout.png" alt="Протеин ISU — Ваниль" style="transform:translate(-33.3333%,0)" />
@@ -378,7 +399,7 @@
         </div>
       </article>
 
-      <article class="product-card" data-product="protein">
+      <article class="product-card reveal" style="--i:2" data-product="protein">
         <a class="product-card-link" href="product-protein.html?flavour=Клубника" aria-label="Подробнее: протеин ISU, Клубника"></a>
         <div class="product-media">
           <img src="assets/protein-cutout.png" alt="Протеин ISU — Клубника" style="transform:translate(-66.6667%,0)" />
@@ -397,7 +418,7 @@
         </div>
       </article>
 
-      <article class="product-card" data-product="creatine">
+      <article class="product-card reveal" style="--i:3" data-product="creatine">
         <a class="product-card-link" href="product-creatine.html" aria-label="Подробнее: креатин ISU"></a>
         <div class="product-media single">
           <img src="assets/creatine-tube-stick.webp" alt="Креатин ISU — тубус ассорти на 20 стиков и отдельный стик" />

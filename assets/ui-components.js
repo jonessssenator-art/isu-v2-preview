@@ -78,3 +78,24 @@
     }).observe(toastText, { childList: true, characterData: true, subtree: true });
   }
 })();
+
+/* >>> ISU-MOTION — корзина «оживает»: когда товаров стало больше, значок в шапке подпрыгивает, а счётчик обновляется. */
+(function () {
+  'use strict';
+  var count = document.getElementById('cartCount');
+  var btn = document.getElementById('cartOpenBtn');
+  if (!count || !btn || !count.animate || !('MutationObserver' in window)) return;
+  var icon = btn.querySelector('.icon');
+  var reduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  var last = parseInt(count.textContent, 10) || 0;
+  new MutationObserver(function () {
+    var now = parseInt(count.textContent, 10) || 0;
+    var grew = now > last;
+    last = now;
+    if (!grew || reduce.matches) return;
+    // easeOutBack — небольшой «пружинящий» перелёт; счётчик — обычный мягкий подъём (кривая сайта --ease)
+    if (icon) icon.animate([{ transform: 'translateY(6px) scale(.86)' }, { transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.34,1.56,.64,1)' });
+    count.animate([{ transform: 'translateY(8px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 260, easing: 'cubic-bezier(.16,.8,.24,1)' });
+  }).observe(count, { childList: true, characterData: true, subtree: true });
+})();
+/* <<< ISU-MOTION */

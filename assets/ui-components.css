@@ -85,6 +85,67 @@ button,.btn,.add-btn{-webkit-user-select:none;user-select:none;-webkit-touch-cal
   .buybar-on .toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 }
 
+/* >>> ISU-MOTION — заставка, плавные переходы между страницами, оживление корзины, карточки и зум первого экрана.
+   Всё, что связано с этим движением, лежит в этом блоке (и в конце ui-components.js) — убрать можно целиком. */
+
+/* ---------- заставка при загрузке: логотип + шторка ----------
+   Включает её маленький скрипт в <head> страницы (класс .splash-on на <html>): при обновлении страницы — всегда,
+   при заходе на сайт — один раз за визит, между страницами и по кнопке «назад» — нет.
+   Шторка уезжает вверх (.splash-go), когда страница загрузилась и логотип побыл на экране минимум секунду;
+   следом по очереди появляются элементы первого экрана (.splash-in, порядок задаёт --i). */
+:root{--ease-in-out:cubic-bezier(.77,0,.175,1)}
+.splash{display:none}
+.splash-on .splash{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:var(--bg);box-shadow:0 1px 0 var(--line-strong)}
+.splash-inner{display:grid;justify-items:center;gap:22px}
+.splash-logo{width:clamp(128px,24vw,188px);filter:brightness(0) invert(1);animation:splash-rise .6s var(--ease) .1s backwards}
+.splash-line{width:clamp(96px,16vw,132px);height:1px;background:var(--line-strong);overflow:hidden}
+.splash-line::after{content:'';display:block;height:100%;background:var(--accent);transform-origin:0 50%;animation:splash-fill .8s linear .15s backwards}
+.splash-on.splash-go .splash{animation:splash-curtain .7s var(--ease-in-out) forwards}
+.splash-on.splash-go .splash-inner{animation:splash-fade .35s var(--ease) forwards}
+.splash-on:not(.splash-go) .splash-in{opacity:0}
+.splash-on.splash-go .splash-in{animation:splash-in .8s var(--ease) calc(.3s + var(--i,0) * 70ms) backwards}
+@keyframes splash-rise{from{opacity:0;transform:translateY(12px)}}
+@keyframes splash-fill{from{transform:scaleX(0)}}
+@keyframes splash-curtain{to{transform:translateY(-100%);visibility:hidden}}
+@keyframes splash-fade{to{opacity:0}}
+@keyframes splash-in{from{opacity:0;transform:translateY(18px)}}
+@keyframes splash-appear{from{opacity:0}}
+@keyframes splash-vanish{to{opacity:0;visibility:hidden}}
+
+/* ---------- плавный переход между страницами ----------
+   Браузеры с View Transitions (Chrome, Edge, Safari 18+) вместо «моргания» плавно перетекают со страницы на страницу.
+   Остальные браузеры этого правила не знают и просто переходят как раньше. */
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+}
+
+/* ---------- первый экран: гора медленно приближается (после заставки) ----------
+   Через отдельное свойство scale, чтобы не мешать параллаксу при прокрутке (он двигает transform). */
+#heroBg{animation:hero-push 16s linear both}
+.splash-on:not(.splash-go) #heroBg{animation:none}
+@keyframes hero-push{from{scale:1}to{scale:1.08}}
+
+/* ---------- каталог: карточки появляются по очереди, банка приподнимается при наведении ---------- */
+.product-card.reveal{transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease),border-color .35s var(--ease)}
+.product-card.reveal.is-in{transform:translateY(0);transition-delay:calc(var(--i,0) * 90ms),calc(var(--i,0) * 90ms),0s}
+/* приподнимаем рамку с банкой, а не саму картинку: у картинки вкус выбирается через transform */
+.product-media{transition:translate .45s var(--ease)}
+@media (hover:hover) and (pointer:fine){.product-card:hover .product-media{translate:0 -8px}}
+
+/* ---------- «уменьшить анимацию»: без перемещений, оставляем спокойное появление ---------- */
+@media (prefers-reduced-motion:reduce){
+  .splash-logo{animation:splash-appear .3s ease .05s backwards}
+  .splash-line::after{animation:none}
+  .splash-on.splash-go .splash{animation:splash-vanish .35s ease forwards}
+  .splash-on.splash-go .splash-inner{animation:none}
+  .splash-on.splash-go .splash-in{animation:splash-appear .4s ease calc(.1s + var(--i,0) * 70ms) backwards}
+  #heroBg{animation:none}
+  .product-card.reveal,.product-card.reveal.is-in{transform:none;transition:opacity .3s ease,border-color .35s ease}
+  .product-media{transition:none}
+  .product-card:hover .product-media{translate:none}
+}
+/* <<< ISU-MOTION */
+
 /* ---------- «уменьшить анимацию»: без перемещений, оставляем спокойное появление ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
